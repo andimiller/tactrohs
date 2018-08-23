@@ -18,6 +18,10 @@ def program(i: Int) = IO.pure(42.asRight[String]) // start off with a normal IO
   .unsafeRunSync() // convert back to IO to run it
 ```
 
+### Automatic merging of `EitherT`s
+
+This means I can write the body of an `http4s` route which returns an `EitherT[F, Response[F], Response[F]]` and it'll automatically be inferred as an `F[Response[F]]`, which saves me a lot of hassle.
+
 ### Why would you do this?
 
 I got fed up of wrapping everything in `EitherT()` and calling `.value` on everything.
