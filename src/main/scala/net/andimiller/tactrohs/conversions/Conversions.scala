@@ -7,6 +7,7 @@ import scala.language.implicitConversions
 object EitherTConversions {
   implicit def fromEitherT[M[_], L, R](i: EitherT[M, L, R]): M[Either[L, R]] = i.value
   implicit def toEitherT[M[_], L, R](i: M[Either[L, R]]): EitherT[M, L, R] = EitherT(i)
+  implicit def autoMerge[M[_]: Functor, T](i: EitherT[M, T, T]): M[T] = i.merge
 }
 
 object OptionTConversions {
